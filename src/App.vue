@@ -17,7 +17,7 @@
                 <i class="el-icon-upload"></i>
                 <span slot="title">新建检测</span>
               </el-menu-item>
-              <el-menu-item index="2">
+              <el-menu-item index="2" :route="{ path: '/listDetectProcedure' }">
                 <i class="el-icon-s-order"></i>
                 <span slot="title">检测任务</span>
               </el-menu-item>

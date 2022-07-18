@@ -7,3 +7,11 @@ export function startDetect(data = {}) {
     data,
   });
 }
+
+export function listDetectProcedure(data = {}) {
+  return request({
+    method: "post",
+    url: "/detectProcedure/listProcedure",
+    data,
+  });
+}
