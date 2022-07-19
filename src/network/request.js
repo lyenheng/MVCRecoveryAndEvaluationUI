@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function request(config) {
   const instance = axios.create({
-    baseURL: "http://127.0.0.1:8080/mvc",
+    baseURL: "http://localhost:8080/mvc",
     timeout: 1000 * 60 * 2,
     withCredentials: false,
   });

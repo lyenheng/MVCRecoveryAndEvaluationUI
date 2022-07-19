@@ -82,6 +82,7 @@ export default {
       formData.append("name", this.detectProcedure.name);
       formData.append("description", this.detectProcedure.description);
       startDetect(formData).then();
+      this.$router.push("/listDetectProcedure");
     },
   },
   components: { Card, Header },

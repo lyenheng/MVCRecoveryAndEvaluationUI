@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import ElementUI from "element-ui";
+import moment from "moment";
 import "element-ui/lib/theme-chalk/index.css";
 
 Vue.config.productionTip = false;
@@ -12,3 +13,10 @@ new Vue({
   router,
   render: (h) => h(App),
 }).$mount("#app");
+
+/**
+ * 全局时间过滤器
+ */
+Vue.filter("dateformat", function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+  return moment(dataStr).format(pattern);
+});
