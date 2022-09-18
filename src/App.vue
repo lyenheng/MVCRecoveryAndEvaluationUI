@@ -80,10 +80,15 @@ export default {
   display: flex;
   align-items: center;
 }
-
+.menu-content .el-menu {
+  border-right: none !important;
+}
 .content {
   padding: 30px 25px;
   overflow: auto;
   flex: 4 0 0;
+}
+.p-15 {
+  padding: 15px;
 }
 </style>

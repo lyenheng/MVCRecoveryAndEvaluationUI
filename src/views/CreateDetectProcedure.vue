@@ -61,19 +61,16 @@
                   <el-table-column
                     prop="size"
                     label="项目大小"
-                    width="115"
                     align="center"
                   ></el-table-column>
                   <el-table-column
                     prop="number"
                     label="文件个数"
-                    width="115"
                     align="center"
                   ></el-table-column>
                   <el-table-column
                     prop="javaProportion"
                     label="Java代码占比"
-                    width="120"
                     align="center"
                   ></el-table-column>
                 </el-table>
@@ -174,9 +171,6 @@ export default {
 };
 </script>
 <style scoped>
-.create-detect-procedure {
-  align-content: center;
-}
 .file-info {
   display: flex;
   justify-content: space-between;
@@ -200,8 +194,5 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.p-15 {
-  padding: 15px;
 }
 </style>
