@@ -21,6 +21,7 @@
                     id="uploadFiles"
                     name="files"
                     type="file"
+                    @change="handleUploadFormChange"
                     webkitdirectory
                   />
                 </form>
@@ -34,13 +35,50 @@
         <div class="upload-progress mr-20">
           <Card>
             <div class="p-15">
-              <el-progress type="circle" :percentage="25"></el-progress>
+              <div>上传进度</div>
+              <div class="upload-progress-content">
+                <el-progress
+                  type="circle"
+                  :percentage="uploadProgress"
+                ></el-progress>
+              </div>
             </div>
           </Card>
         </div>
         <div class="file-detail">
           <Card>
-            <div class="p-15">文件详情</div>
+            <div class="p-15">
+              <div class="file-detail-tile">文件详情</div>
+              <div class="file-detail-content">
+                <el-table :data="fileInfo" style="width: 100%">
+                  <el-table-column
+                    prop="name"
+                    label="项目名"
+                    width="220"
+                    align="center"
+                    show-overflow-tooltip
+                  ></el-table-column>
+                  <el-table-column
+                    prop="size"
+                    label="项目大小"
+                    width="115"
+                    align="center"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="number"
+                    label="文件个数"
+                    width="115"
+                    align="center"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="javaProportion"
+                    label="Java代码占比"
+                    width="120"
+                    align="center"
+                  ></el-table-column>
+                </el-table>
+              </div>
+            </div>
           </Card>
         </div>
       </div>
@@ -52,6 +90,7 @@
 import { startDetect } from "../network/detectProcedure";
 import Card from "../components/Card.vue";
 import Header from "../components/Header.vue";
+import { convertFileSize } from "../utils";
 export default {
   name: "CreateDetectProcedure",
   data() {
@@ -60,11 +99,25 @@ export default {
         name: "",
         description: "",
       },
+      uploadProgress: 0,
+      /**
+       * 文件详情
+       */
+      fileInfo: [
+        {
+          name: "",
+          number: 0,
+          size: 0,
+          javaProportion: "0%",
+        },
+      ],
     };
   },
   methods: {
     startDetect() {
       const formData = new FormData(document.getElementById("uploadForm"));
+      console.log(formData.get("files"));
+      console.log(formData.get("files"));
       if (formData.get("files").size === 0) {
         this.$message({
           message: "请先上传文件",
@@ -79,10 +132,42 @@ export default {
         });
         return;
       }
+      console.log("formData");
+      console.log(formData);
       formData.append("name", this.detectProcedure.name);
       formData.append("description", this.detectProcedure.description);
-      startDetect(formData).then();
-      this.$router.push("/listDetectProcedure");
+      startDetect(formData, (progressEvent) => {
+        this.uploadProgress =
+          (progressEvent.loaded / progressEvent.total) * 100;
+      }).then();
+      // this.$router.push("/listDetectProcedure");
+    },
+
+    /**
+     * 处理文件信息
+     * @param {} event
+     */
+    handleUploadFormChange(event) {
+      if (event.target.files.length <= 0) {
+        return;
+      }
+      let files = event.target.files;
+      this.fileInfo[0].name = files[0].webkitRelativePath.split("/")[0];
+      this.fileInfo[0].number = files.length;
+      let totalSize = 0;
+      let javaFileNum = 0;
+
+      for (let i = 0; i < files.length; ++i) {
+        totalSize = totalSize + files[i].size;
+        if (files[i].name.endsWith(".java")) {
+          javaFileNum++;
+        }
+      }
+
+      this.fileInfo[0].javaProportion =
+        ((javaFileNum / this.fileInfo[0].number) * 100).toFixed(2) + "%";
+
+      this.fileInfo[0].size = convertFileSize(totalSize);
     },
   },
   components: { Card, Header },
@@ -96,8 +181,11 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.file-info > div {
-  flex: 1 0 0;
+.file-info > .upload-progress {
+  flex: 4 0 0;
+}
+.file-info > .file-detail {
+  flex: 6 0 0;
 }
 .mr-20 {
   margin-right: 20px;
@@ -107,6 +195,11 @@ export default {
 }
 .upload-progress {
   height: 200px;
+}
+.upload-progress-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .p-15 {
   padding: 15px;

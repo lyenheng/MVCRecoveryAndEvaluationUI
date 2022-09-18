@@ -1,10 +1,11 @@
 import { request } from "./request";
 
-export function startDetect(data = {}) {
+export function startDetect(data = {}, onUploadProgress) {
   return request({
     method: "post",
     url: "/detectProcedure/startDetect",
     data,
+    onUploadProgress,
   });
 }
 

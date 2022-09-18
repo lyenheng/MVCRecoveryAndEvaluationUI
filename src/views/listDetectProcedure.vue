@@ -24,7 +24,7 @@
     </Header>
 
     <div class="content">
-      <el-table :data="detectListData" stripe style="width: 100%">
+      <el-table :data="detectListData" stripe style="width: 100%" max-height="350">
         <el-table-column label="检测开始时间" width="140">
           <template slot-scope="scope">
             <span>{{
@@ -100,6 +100,7 @@ export default {
       listDetectProcedure(this.searchProcedureVO).then((res) => {
         this.detectListData = res.data;
         this.totalElements = res.totalElements;
+        this.handleStatus();
       });
     },
     /**
@@ -120,6 +121,31 @@ export default {
       console.log(`当前页: ${val}`);
       this.searchProcedureVO.pageNo = val - 1;
       this.listDetectData();
+    },
+    /**
+     * 如果检测状态是检测中，设置定时器
+     * 轮询检测状态
+     */
+    handleStatus() {
+      let isDetecting =
+        this.detectListData.filter((data) => {
+          return data.status === "检测中";
+        }).length > 0;
+      if (isDetecting) {
+        let tm = setInterval(() => {
+          if (!isDetecting) {
+            clearInterval(tm);
+          }
+          listDetectProcedure(this.searchProcedureVO).then((res) => {
+            this.detectListData = res.data;
+            this.totalElements = res.totalElements;
+            isDetecting =
+              res.data.filter((data) => {
+                return data.status === "检测中";
+              }).length > 0;
+          });
+        }, 1000);
+      }
     },
   },
 };
