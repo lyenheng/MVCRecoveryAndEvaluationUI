@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import CreateDetectProcedure from "../views/CreateDetectProcedure.vue";
-import ListDetectProcedure from "../views/ListDetectProcedure";
-import Home from "../views/Home.vue";
+import DetectProcedure from "../views/DetectProcedure";
+import ListDetectProcedure from "../views/DetectProcedure/ListDetectProcedure";
+import Recovery from "../views/DetectProcedure/Recovery";
 
 Vue.use(VueRouter);
 
@@ -14,13 +15,21 @@ const routes = [
   },
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    redirect: "/createDetectProcedure",
   },
   {
-    path: "/listDetectProcedure",
-    name: "ListDetectProcedure",
-    component: ListDetectProcedure,
+    path: "/detectProcedure",
+    component: DetectProcedure,
+    children: [
+      {
+        path: "",
+        component: ListDetectProcedure,
+      },
+      {
+        path: "recovery/:id",
+        component: Recovery,
+      },
+    ],
   },
 ];
 

@@ -61,16 +61,19 @@
                   <el-table-column
                     prop="size"
                     label="项目大小"
+                    width="125"
                     align="center"
                   ></el-table-column>
                   <el-table-column
                     prop="number"
                     label="文件个数"
+                    width="125"
                     align="center"
                   ></el-table-column>
                   <el-table-column
                     prop="javaProportion"
                     label="Java代码占比"
+                    width="150"
                     align="center"
                   ></el-table-column>
                 </el-table>
@@ -102,7 +105,7 @@ export default {
        */
       fileInfo: [
         {
-          name: "",
+          name: "MVC项目名",
           number: 0,
           size: 0,
           javaProportion: "0%",

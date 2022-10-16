@@ -48,8 +48,12 @@
             <el-table-column prop="status" label="检测状态" width="80">
             </el-table-column>
             <el-table-column label="操作">
-              <template>
-                <el-button type="text" size="small">检测报告</el-button
+              <template slot-scope="scope">
+                <el-button
+                  type="text"
+                  size="small"
+                  @click="routeToRecovery(scope.row.id)"
+                  >检测报告</el-button
                 ><el-button type="text" size="small">评估报告</el-button>
               </template>
             </el-table-column>
@@ -73,9 +77,9 @@
 </template>
 
 <script>
-import Header from "../components/Header.vue";
-import Card from "../components/Card.vue";
-import { listDetectProcedure } from "../network/detectProcedure";
+import Header from "../../components/Header.vue";
+import Card from "../../components/Card.vue";
+import { listDetectProcedure } from "../../network/detectProcedure";
 
 export default {
   name: "ListDetectProcedure",
@@ -89,6 +93,7 @@ export default {
       },
       detectListData: [
         {
+          id: "",
           beginTime: "",
           name: "",
           description: "",
@@ -157,6 +162,15 @@ export default {
           });
         }, 1000);
       }
+    },
+
+    /**
+     * 路由跳转到架构恢复结果页面
+     */
+    routeToRecovery(id) {
+      this.$router.push({
+        path: `detectProcedure/recovery/${id}`,
+      });
     },
   },
 };
