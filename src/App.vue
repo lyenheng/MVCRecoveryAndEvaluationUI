@@ -91,4 +91,16 @@ export default {
 .p-15 {
   padding: 15px;
 }
+.mr-20 {
+  margin-right: 20px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
 </style>

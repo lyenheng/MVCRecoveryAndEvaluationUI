@@ -7,7 +7,7 @@
     <div>
       <div class="mb-20">
         <Card>
-          <div class="detect-procedure-info p-15">
+          <div class="detect-procedure-info">
             <el-form ref="form" :model="detectProcedure" label-width="80px">
               <el-form-item label="检测名称">
                 <el-input v-model="detectProcedure.name"></el-input>
@@ -34,7 +34,7 @@
       <div class="file-info">
         <div class="upload-progress mr-20">
           <Card>
-            <div class="p-15">
+            <div>
               <div>上传进度</div>
               <div class="upload-progress-content">
                 <el-progress
@@ -47,7 +47,7 @@
         </div>
         <div class="file-detail">
           <Card>
-            <div class="p-15">
+            <div>
               <div class="file-detail-tile">文件详情</div>
               <div class="file-detail-content">
                 <el-table :data="fileInfo" style="width: 100%">

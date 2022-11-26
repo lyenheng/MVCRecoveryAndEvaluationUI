@@ -25,7 +25,7 @@
 
     <div class="detect-procedure-content">
       <Card>
-        <div class="p-15">
+        <div>
           <el-table
             :data="detectListData"
             stripe

@@ -1,6 +1,11 @@
 <template>
-  <div class="card">
-    <slot> </slot>
+  <div class="card p-15">
+    <div class="title">
+      <slot name="title"></slot>
+    </div>
+    <div>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -17,5 +22,9 @@ export default {};
 
   height: 100%;
   width: 100%;
+}
+.title {
+  font-size: 12px;
+  line-height: 20px;
 }
 </style>
