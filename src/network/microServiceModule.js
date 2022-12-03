@@ -6,3 +6,17 @@ export function getMicroServiceModule(id) {
     url: `/microserviceModule/getMicroServiceModule/${id}`,
   });
 }
+
+export function getModuleDependencyTree(id) {
+  return request({
+    method: "get",
+    url: `/microserviceModule/moduleDependencyTree/${id}`,
+  });
+}
+
+export function getDatabaseInfo(id) {
+  return request({
+    method: "get",
+    url: `/microserviceModule/databaseInfo/${id}`,
+  });
+}

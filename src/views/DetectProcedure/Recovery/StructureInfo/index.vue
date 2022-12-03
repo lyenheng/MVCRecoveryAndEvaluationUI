@@ -26,11 +26,15 @@
         <div class="mr-20">
           <card>
             <template #title>项目模块依赖图</template>
+            <ModuleDenpendencyTree
+              :moduleDependencyTree="moduleDependencyTree"
+            />
           </card>
         </div>
         <div>
           <card>
             <template #title>数据库信息</template>
+            <DatabaseInfo :dataBaseDataList="databaseInfoList" />
           </card>
         </div>
       </div>
@@ -73,9 +77,15 @@
 </template>
 
 <script>
-import { getMicroServiceModule } from "../../../../network/microServiceModule";
+import {
+  getMicroServiceModule,
+  getModuleDependencyTree,
+  getDatabaseInfo,
+} from "../../../../network/microServiceModule";
 import { getAllClassInfoByEntryModule } from "../../../../network/classInfo";
+import ModuleDenpendencyTree from "./ModuleDenpendencyTree.vue";
 import ClassDistribution from "./ClassDistribution.vue";
+import DatabaseInfo from "./DatabaseInfo.vue";
 import Card from "../../../../components/Card.vue";
 export default {
   data() {
@@ -83,12 +93,16 @@ export default {
       microServiceModuleData: [],
       currentMicroServiceModuleId: "",
       classDescriptionList: [],
+      moduleDependencyTree: [],
+      databaseInfoList: [],
     };
   },
 
   components: {
     Card,
     ClassDistribution,
+    ModuleDenpendencyTree,
+    DatabaseInfo,
   },
 
   mounted() {
@@ -98,6 +112,8 @@ export default {
   watch: {
     currentMicroServiceModuleId(newValue) {
       this.getClassInfo(newValue);
+      this.getModuleDependencyTree(newValue);
+      this.getDatabaseInfo(newValue);
     },
   },
 
@@ -121,6 +137,20 @@ export default {
         this.classDescriptionList = res;
       });
     },
+
+    // 获取模块依赖树数据
+    getModuleDependencyTree(entryModuleId) {
+      getModuleDependencyTree(entryModuleId).then((res) => {
+        this.moduleDependencyTree = [res];
+      });
+    },
+
+    // 获取数据库配置信息
+    getDatabaseInfo(entryModuleId) {
+      getDatabaseInfo(entryModuleId).then((res) => {
+        this.databaseInfoList = res;
+      });
+    },
   },
 };
 </script>
@@ -134,6 +164,9 @@ export default {
 }
 .content-part1 {
   height: 200px;
+}
+.content-part1 > div {
+  overflow: hidden;
 }
 .content-part1 > div:nth-child(1) {
   flex: 2 0 0;
