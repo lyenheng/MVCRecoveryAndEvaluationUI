@@ -23,7 +23,12 @@
       </el-table-column>
       <el-table-column prop="url" label="url" show-overflow-tooltip width="50">
       </el-table-column>
-      <el-table-column prop="port" label="端口" show-overflow-tooltip width="40">
+      <el-table-column
+        prop="port"
+        label="端口"
+        show-overflow-tooltip
+        width="40"
+      >
       </el-table-column>
     </el-table>
   </div>

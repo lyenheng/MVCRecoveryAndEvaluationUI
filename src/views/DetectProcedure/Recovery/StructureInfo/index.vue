@@ -44,11 +44,13 @@
             <template #title>controller层类信息</template>
           </card>
         </div>
-        <div class="mr-20">
+        <div>
           <card>
             <template #title>service层类信息</template>
           </card>
         </div>
+      </div>
+      <div class="content-part3">
         <div class="mr-20">
           <card>
             <template #title>dao层类信息</template>
@@ -60,7 +62,7 @@
           </card>
         </div>
       </div>
-      <div class="content-part3">
+      <div class="content-part4">
         <div class="mr-20">
           <card>
             <template #title>mvc 各层次类分布</template>
@@ -186,10 +188,16 @@ export default {
 .content-part3 {
   height: 200px;
 }
-.content-part3 > div:nth-child(1) {
+.content-part3 > div {
+  flex: 1 0 0;
+}
+.content-part4 {
+  height: 200px;
+}
+.content-part4 > div:nth-child(1) {
   flex: 2 0 0;
 }
-.content-part3 > div:nth-child(2) {
+.content-part4 > div:nth-child(2) {
   flex: 3 0 0;
 }
 </style>
