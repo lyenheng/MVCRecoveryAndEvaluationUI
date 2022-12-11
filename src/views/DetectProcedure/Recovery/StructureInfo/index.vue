@@ -39,14 +39,28 @@
         </div>
       </div>
       <div class="content-part2">
-        <div class="mr-20">
+        <div class="mr-10">
           <card>
             <template #title>controller层类信息</template>
+            <ControllerInfo
+              :controllerInfoList="
+                classDescriptionList.filter(
+                  (item) => item.classType === 'CONTROLLER'
+                )
+              "
+            />
           </card>
         </div>
-        <div>
+        <div class="ml-10">
           <card>
             <template #title>service层类信息</template>
+            <ServiceInfo
+              :serviceInfoList="
+                classDescriptionList.filter(
+                  (item) => item.classType === 'SERVICE'
+                )
+              "
+            />
           </card>
         </div>
       </div>
@@ -54,11 +68,21 @@
         <div class="mr-20">
           <card>
             <template #title>dao层类信息</template>
+            <DaoInfo
+              :daoInfoList="
+                classDescriptionList.filter((item) => item.classType === 'DAO')
+              "
+            />
           </card>
         </div>
         <div>
           <card>
             <template #title>其他类信息</template>
+            <OtherClassInfo
+              :otherClassInfoList="
+                classDescriptionList.filter((item) => item.classType === null)
+              "
+            />
           </card>
         </div>
       </div>
@@ -89,6 +113,10 @@ import ModuleDenpendencyTree from "./ModuleDenpendencyTree.vue";
 import ClassDistribution from "./ClassDistribution.vue";
 import DatabaseInfo from "./DatabaseInfo.vue";
 import Card from "../../../../components/Card.vue";
+import ControllerInfo from "./ControllerInfo.vue";
+import ServiceInfo from "./ServiceInfo.vue";
+import DaoInfo from "./DaoInfo.vue";
+import OtherClassInfo from "./OtherClassInfo.vue";
 export default {
   data() {
     return {
@@ -105,6 +133,10 @@ export default {
     ClassDistribution,
     ModuleDenpendencyTree,
     DatabaseInfo,
+    ControllerInfo,
+    ServiceInfo,
+    DaoInfo,
+    OtherClassInfo,
   },
 
   mounted() {
@@ -179,6 +211,9 @@ export default {
 .content-part1 > div:nth-child(3) {
   flex: 2 0 0;
 }
+.content-part2 > div {
+  overflow: hidden;
+}
 .content-part2 {
   height: 200px;
 }
@@ -187,6 +222,9 @@ export default {
 }
 .content-part3 {
   height: 200px;
+}
+.content-part3 > div {
+  overflow: hidden;
 }
 .content-part3 > div {
   flex: 1 0 0;
