@@ -89,12 +89,10 @@
       <div class="content-part4">
         <div class="mr-20">
           <card>
-            <template #title>mvc 各层次类分布</template>
-          </card>
-        </div>
-        <div>
-          <card>
-            <template #title>mvc 各层次类分布</template>
+            <template #title>mvc层间关系</template>
+            <LayersRelationGraph
+              :layersRelationGraph="layersRelationGraphData"
+            />
           </card>
         </div>
       </div>
@@ -107,9 +105,11 @@ import {
   getMicroServiceModule,
   getModuleDependencyTree,
   getDatabaseInfo,
+  getLayersRelationGraph,
 } from "../../../../network/microServiceModule";
 import { getAllClassInfoByEntryModule } from "../../../../network/classInfo";
 import ModuleDenpendencyTree from "./ModuleDenpendencyTree.vue";
+import LayersRelationGraph from "./LayersRelation.vue";
 import ClassDistribution from "./ClassDistribution.vue";
 import DatabaseInfo from "./DatabaseInfo.vue";
 import Card from "../../../../components/Card.vue";
@@ -125,6 +125,7 @@ export default {
       classDescriptionList: [],
       moduleDependencyTree: [],
       databaseInfoList: [],
+      layersRelationGraphData: {},
     };
   },
 
@@ -137,6 +138,7 @@ export default {
     ServiceInfo,
     DaoInfo,
     OtherClassInfo,
+    LayersRelationGraph,
   },
 
   mounted() {
@@ -148,6 +150,7 @@ export default {
       this.getClassInfo(newValue);
       this.getModuleDependencyTree(newValue);
       this.getDatabaseInfo(newValue);
+      this.getLayersRelationGraphData(newValue);
     },
   },
 
@@ -183,6 +186,13 @@ export default {
     getDatabaseInfo(entryModuleId) {
       getDatabaseInfo(entryModuleId).then((res) => {
         this.databaseInfoList = res;
+      });
+    },
+
+    // 获取层间关系图的数据
+    getLayersRelationGraphData(entryModuleId) {
+      getLayersRelationGraph(entryModuleId).then((res) => {
+        this.layersRelationGraphData = res;
       });
     },
   },
@@ -230,7 +240,7 @@ export default {
   flex: 1 0 0;
 }
 .content-part4 {
-  height: 200px;
+  height: 400px;
 }
 .content-part4 > div:nth-child(1) {
   flex: 2 0 0;

@@ -20,3 +20,10 @@ export function getDatabaseInfo(id) {
     url: `/microserviceModule/databaseInfo/${id}`,
   });
 }
+
+export function getLayersRelationGraph(id) {
+  return request({
+    method: "get",
+    url: `/microserviceModule/getLayersRelationData/${id}`,
+  });
+}
