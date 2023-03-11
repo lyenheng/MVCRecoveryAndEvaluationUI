@@ -45,6 +45,9 @@ export default {
             data: graphData.categories.map(function (a) {
               return a.name;
             }),
+            orient: "vertical",
+            left: "10",
+            top: "30",
           },
         ],
         animationDuration: 1500,
@@ -83,7 +86,7 @@ export default {
 
 <style>
 #layersRelationGraph {
-  height: 500px;
-  width: 500px;
+  width: 800px;
+  height: 550px;
 }
 </style>

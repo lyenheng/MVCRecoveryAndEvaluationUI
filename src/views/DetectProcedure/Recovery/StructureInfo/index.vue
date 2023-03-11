@@ -240,7 +240,7 @@ export default {
   flex: 1 0 0;
 }
 .content-part4 {
-  height: 400px;
+  height: 600px;
 }
 .content-part4 > div:nth-child(1) {
   flex: 2 0 0;
