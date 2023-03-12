@@ -1,7 +1,7 @@
 <template>
   <div class="evaluation">
     <Header>
-      <h3>架构恢复</h3>
+      <h3>架构评估</h3>
     </Header>
     <div class="service-selector mb-20">
       <el-select
@@ -20,19 +20,24 @@
     </div>
     <Card>
       <div style="min-height: 500px">
-        <el-tabs tab-position="right" style="height: 200px">
+        <el-tabs tab-position="right">
           <el-tab-pane label="功能性评估">
             <functionality-evaluation
+              :microServiceModuleName="currentMicroServiceModuleName"
               :functionalityResult="functionalityResult"
             />
           </el-tab-pane>
           <el-tab-pane label="可维护性评估">
             <maintain-ablity-evaluation
+              :microServiceModuleName="currentMicroServiceModuleName"
               :maintainabilityResult="maintainabilityResult"
             />
           </el-tab-pane>
           <el-tab-pane label="效率评估">
-            <efficiency-evaluation :efficiencyResult="efficiencyResult" />
+            <efficiency-evaluation
+              :microServiceModuleName="currentMicroServiceModuleName"
+              :efficiencyResult="efficiencyResult"
+            />
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -72,6 +77,16 @@ export default {
     this.getMicroServiceModule();
   },
 
+  computed: {
+    currentMicroServiceModuleName() {
+      return (
+        (this.microServiceModuleData || []).find(
+          (item) => item.value === this.currentMicroServiceModuleId
+        )?.label || ""
+      );
+    },
+  },
+
   watch: {
     currentMicroServiceModuleId(newValue) {
       this.getMicroServiceEvaluationResult(newValue);
@@ -92,8 +107,8 @@ export default {
       });
     },
 
-    getMicroServiceEvaluationResult() {
-      getMicroServiceEvaluation(this.$route.params.id).then((res) => {
+    getMicroServiceEvaluationResult(serviceId) {
+      getMicroServiceEvaluation(serviceId).then((res) => {
         this.maintainabilityResult = res?.maintainabilityResult || {};
         this.functionalityResult = res?.functionalityResult || {};
         this.efficiencyResult = res?.efficiencyResult || {};
@@ -109,47 +124,5 @@ export default {
   flex-flow: row nowrap;
   justify-content: space-between;
   margin-bottom: 20px;
-}
-.content-part1 {
-  height: 200px;
-}
-.content-part1 > div {
-  overflow: hidden;
-}
-.content-part1 > div:nth-child(1) {
-  flex: 2 0 0;
-}
-.content-part1 > div:nth-child(2) {
-  flex: 3 0 0;
-}
-.content-part1 > div:nth-child(3) {
-  flex: 2 0 0;
-}
-.content-part2 > div {
-  overflow: hidden;
-}
-.content-part2 {
-  height: 200px;
-}
-.content-part2 > div {
-  flex: 1 0 0;
-}
-.content-part3 {
-  height: 200px;
-}
-.content-part3 > div {
-  overflow: hidden;
-}
-.content-part3 > div {
-  flex: 1 0 0;
-}
-.content-part4 {
-  height: 600px;
-}
-.content-part4 > div:nth-child(1) {
-  flex: 2 0 0;
-}
-.content-part4 > div:nth-child(2) {
-  flex: 3 0 0;
 }
 </style>

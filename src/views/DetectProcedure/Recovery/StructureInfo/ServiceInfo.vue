@@ -7,7 +7,12 @@
       :max-height="160"
       size="mini"
     >
-      <el-table-column prop="name" label="类名" width="60" show-overflow-tooltip>
+      <el-table-column
+        prop="name"
+        label="类名"
+        width="60"
+        show-overflow-tooltip
+      >
       </el-table-column>
       <el-table-column
         prop="fullyQualifiedName"
