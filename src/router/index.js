@@ -4,6 +4,7 @@ import CreateDetectProcedure from "../views/CreateDetectProcedure.vue";
 import DetectProcedure from "../views/DetectProcedure";
 import ListDetectProcedure from "../views/DetectProcedure/ListDetectProcedure";
 import Recovery from "../views/DetectProcedure/Recovery";
+import Evaluation from "../views/DetectProcedure/Evaluation";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,10 @@ const routes = [
       {
         path: "recovery/:id",
         component: Recovery,
+      },
+      {
+        path: "evaluation/:id",
+        component: Evaluation,
       },
     ],
   },

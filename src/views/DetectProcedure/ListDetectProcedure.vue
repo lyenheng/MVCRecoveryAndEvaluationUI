@@ -54,7 +54,12 @@
                   size="small"
                   @click="routeToRecovery(scope.row.id)"
                   >检测报告</el-button
-                ><el-button type="text" size="small">评估报告</el-button>
+                ><el-button
+                  type="text"
+                  size="small"
+                  @click="routeToEvaluation(scope.row.id)"
+                  >评估报告</el-button
+                >
               </template>
             </el-table-column>
           </el-table>
@@ -170,6 +175,15 @@ export default {
     routeToRecovery(id) {
       this.$router.push({
         path: `detectProcedure/recovery/${id}`,
+      });
+    },
+
+    /**
+     * 路由跳转到架构评估结果页面
+     */
+    routeToEvaluation(id) {
+      this.$router.push({
+        path: `detectProcedure/evaluation/${id}`,
       });
     },
   },

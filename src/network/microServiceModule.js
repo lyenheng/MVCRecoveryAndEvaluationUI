@@ -27,3 +27,10 @@ export function getLayersRelationGraph(id) {
     url: `/microserviceModule/getLayersRelationData/${id}`,
   });
 }
+
+export function getMicroServiceEvaluation(id) {
+  return request({
+    method: "get",
+    url: `/evaluation/${id}`,
+  });
+}
